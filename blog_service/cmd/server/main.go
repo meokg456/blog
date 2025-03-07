@@ -25,6 +25,7 @@ func SetupRoutes(router *mux.Router) {
 
 func main() {
 	db.InitDB()
+	defer db.CloseDB()
 
 	router := mux.NewRouter()
 	SetupRoutes(router)

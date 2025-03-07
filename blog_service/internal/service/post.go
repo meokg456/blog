@@ -4,10 +4,11 @@ import (
 	"errors"
 
 	"github.com/meokg456/blog_service/internal/db"
+	"github.com/meokg456/blog_service/internal/model"
 )
 
-func GetPosts() ([]db.Post, error) {
-	var posts []db.Post
+func GetPosts() ([]model.Post, error) {
+	var posts []model.Post
 	err := db.DB.Select(&posts, "SELECT * FROM posts")
 	if err != nil {
 		return nil, err
@@ -16,8 +17,8 @@ func GetPosts() ([]db.Post, error) {
 	return posts, nil
 }
 
-func CreatePost(title string, content string) (*db.Post, error) {
-	var post db.Post
+func CreatePost(title string, content string) (*model.Post, error) {
+	var post model.Post
 	err := db.DB.QueryRowx("INSERT INTO posts (title, content) VALUES ($1, $2) RETURNING *", title, content).StructScan(&post)
 
 	if err != nil {
@@ -27,8 +28,8 @@ func CreatePost(title string, content string) (*db.Post, error) {
 	return &post, err
 }
 
-func GetPost(id int) (*db.Post, error) {
-	var post db.Post
+func GetPost(id int) (*model.Post, error) {
+	var post model.Post
 	err := db.DB.Get(&post, "SELECT * FROM posts WHERE id = $1", id)
 	if err != nil {
 		return nil, err
