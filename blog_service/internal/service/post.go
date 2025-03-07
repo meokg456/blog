@@ -49,7 +49,7 @@ func DeletePost(id int) error {
 	}
 
 	if rowsAffected == 0 {
-		return errors.New("Post is not existed")
+		return errors.New("post not found")
 	}
 
 	return nil
