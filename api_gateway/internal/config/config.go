@@ -13,6 +13,11 @@ var JwtSecret string
 
 var Proxies = map[string]*httputil.ReverseProxy{}
 
+var PublicRoutes = map[string]bool{
+	"/login":    true,
+	"/register": true,
+}
+
 func LoadConfig() {
 	err := godotenv.Load()
 	if err != nil {

@@ -8,14 +8,9 @@ import (
 	"github.com/meokg456/api_gateway/internal/config"
 )
 
-var publicRoutes = map[string]bool{
-	"/login":    true,
-	"/register": true,
-}
-
 func AuthMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if publicRoutes[r.URL.Path] {
+		if config.PublicRoutes[r.URL.Path] {
 			next.ServeHTTP(w, r)
 			return
 		}
