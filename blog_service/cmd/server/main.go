@@ -35,7 +35,7 @@ func main() {
 	router := mux.NewRouter()
 	SetupRoutes(router)
 
-	log.Println("Blog service listening on http://localhost:8082")
+	log.Println("Blog service is listening on http://localhost:8082")
 
 	if err := http.ListenAndServe("localhost:8082", router); err != nil {
 		log.Fatal(err)
