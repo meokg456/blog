@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
+	"github.com/joho/godotenv"
 	"github.com/meokg456/blog_service/internal/db"
 	"github.com/meokg456/blog_service/internal/handler"
 )
@@ -24,15 +25,19 @@ func SetupRoutes(router *mux.Router) {
 }
 
 func main() {
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error while loading .env file")
+	}
+
 	db.InitDB()
-	defer db.CloseDB()
 
 	router := mux.NewRouter()
 	SetupRoutes(router)
 
-	log.Println("Blog service listening on http://localhost:8081")
+	log.Println("Blog service listening on http://localhost:8082")
 
-	if err := http.ListenAndServe("localhost:8081", router); err != nil {
+	if err := http.ListenAndServe("localhost:8082", router); err != nil {
 		log.Fatal(err)
 	}
 }
